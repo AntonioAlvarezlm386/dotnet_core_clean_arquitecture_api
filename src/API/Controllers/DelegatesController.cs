@@ -19,7 +19,7 @@ public class DelegatesController : ControllerBase
     /// Endpoint para mostrar los resulados del primer ejercicio de delegados del curso de Gavin Lon
     /// </summary>
     /// <returns></returns>
-    [HttpGet("first-approach", Name = "Delegates")]
+    [HttpGet("abstraction-intro", Name = "Delegates")]
     public async Task<IActionResult> Salary()
     {
         var totalSalary = await _sender.Send(new GetEmployeesSalaryQuery());
