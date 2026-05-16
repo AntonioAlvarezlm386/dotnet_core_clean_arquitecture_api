@@ -3,6 +3,7 @@ using Application.Employees.Queries;
 using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Context;
+using Persistence.DependencyInjection;
 
 var envPath = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "..", "..", ".env"));
 if (File.Exists(envPath))
@@ -23,6 +24,9 @@ builder.Services.AddSwaggerGen();
 // Persistence
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Repositories
+builder.Services.AddPersistenceServices();
 
 // Mediatr
 builder.Services.AddMediatR(cfg =>

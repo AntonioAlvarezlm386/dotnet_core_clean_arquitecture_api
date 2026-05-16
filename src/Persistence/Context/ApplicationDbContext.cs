@@ -1,3 +1,4 @@
+using Domain.Delegates.ClubMembership.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Persistence.Context;
@@ -8,6 +9,8 @@ public class ApplicationDbContext : DbContext
         : base(options)
     {
     }
+
+    public DbSet<User> Users { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
