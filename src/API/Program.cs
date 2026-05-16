@@ -1,5 +1,12 @@
 using API;
 using Application.Employees.Queries;
+using DotNetEnv;
+using Microsoft.EntityFrameworkCore;
+using Persistence.Context;
+
+var envPath = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "..", "..", ".env"));
+if (File.Exists(envPath))
+    DotNetEnv.Env.Load(envPath);
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,8 +20,11 @@ builder.Services.AddControllers(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Persistence
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-//Mediatr
+// Mediatr
 builder.Services.AddMediatR(cfg =>
     cfg.RegisterServicesFromAssembly(typeof(GetEmployeesSalaryQuery).Assembly));
 
